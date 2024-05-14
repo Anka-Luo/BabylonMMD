@@ -49,7 +49,7 @@ export class SceneBuilder implements ISceneBuilder {
         const alphaBlendMaterials = ["face02", "Facial02", "HL", "Hairshadow", "q302"];
         const alphaTestMaterials = ["q301"];
 
-        materialBuilder.afterBuildSingleMaterial = (material: any) => {
+        materialBuilder.afterBuildSingleMaterial = (material: any): any => {
             if (!alphaBlendMaterials.includes(material.name) && !alphaTestMaterials.includes(material.name)) return;
             material.transparencyMode = alphaBlendMaterials.includes(material.name)
                 ? Material.MATERIAL_ALPHABLEND
