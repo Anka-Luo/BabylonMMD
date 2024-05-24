@@ -7,6 +7,7 @@
         "watch": "webpack --watch",
         "build": "webpack --env production",
         "lint": "eslint --ext .ts,.tsx . --fix --cache"
+        
     },
     "repository": {
         "type": "git",
@@ -27,14 +28,14 @@
         "eslint-webpack-plugin": "^4.0.1",
         "file-loader": "^6.2.0",
         "html-loader": "^4.2.0",
-        "html-webpack-plugin": "^5.5.3",
-        "ts-loader": "^9.4.4",
+        "html-webpack-plugin": "^5.6.0",
+        "ts-loader": "^9.5.1",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
         "url": "^0.11.3",
-        "webpack": "^5.88.2",
+        "webpack": "^5.91.0",
         "webpack-cli": "^5.1.4",
-        "webpack-dev-server": "^4.15.1"
+        "webpack-dev-server": "^4.15.2"
     },
     "sideEffects": false,
     "dependencies": {

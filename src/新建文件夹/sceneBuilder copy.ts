@@ -5,7 +5,7 @@ import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/core/Rendering/geometryBufferRendererSceneComponent";
 
-import { ArcRotateCamera, Constants, Material, MirrorTexture, Plane, SSRRenderingPipeline } from "@babylonjs/core";
+import { ArcRotateCamera, Constants,  Material, MirrorTexture, Plane, SSRRenderingPipeline } from "@babylonjs/core";
 import type { Engine } from "@babylonjs/core/Engines/engine";
 import { DirectionalLight } from "@babylonjs/core/Lights/directionalLight";
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
@@ -31,16 +31,12 @@ import { MmdPhysics } from "babylon-mmd/esm/Runtime/mmdPhysics";
 import { MmdRuntime } from "babylon-mmd/esm/Runtime/mmdRuntime";
 
 // import { MmdPlayerControl } from "babylon-mmd/esm/Runtime/Util/mmdPlayerControl";
-import type { ISceneBuilder } from "./baseRuntime";/**
-* 场景构建器类，用于创建和配置Babylon.js场景以及加载MMD模型和相关资源。
-* /
-* @export
-* @class SceneBuilder
-* @implements {ISceneBuilder} 异步构建场景的接口
-*/
+import type { ISceneBuilder } from "./baseRuntime";
+
 export class SceneBuilder implements ISceneBuilder {
     /**
      * 使用给定的HTML画布和引擎异步构建场景。
+     *
      * @param _canvas HTML画布元素，用于初始化Babylon.js场景。
      * @param engine Babylon.js引擎实例。
      * @returns {Promise<Scene>} 构建完成的Babylon.js场景实例。
@@ -202,84 +198,6 @@ export class SceneBuilder implements ISceneBuilder {
         const mmdModel = mmdRuntime.createMmdModel(modelMesh);
         mmdModel.addAnimation(loadResults[2]);
         mmdModel.setAnimation("motion_1");
-
-
-
-        // //Pipline
-        // const defaultPipeline = new DefaultRenderingPipeline("default", true, scene, [mmdCamera, camera]);
-        // defaultPipeline.samples = 4;
-        // defaultPipeline.bloomEnabled = true;
-        // defaultPipeline.chromaticAberrationEnabled = true;
-        // defaultPipeline.chromaticAberration.aberrationAmount = 1;
-        // defaultPipeline.fxaaEnabled = true;
-        // defaultPipeline.imageProcessingEnabled = true;
-        // defaultPipeline.imageProcessing.toneMappingEnabled = true;
-        // defaultPipeline.imageProcessing.toneMappingType = ImageProcessingConfiguration.TONEMAPPING_ACES;
-        // defaultPipeline.imageProcessing.vignetteWeight = 0.5;
-        // defaultPipeline.imageProcessing.vignetteStretch = 0.5;
-        // defaultPipeline.imageProcessing.vignetteColor = new Color4(0, 0, 0, 0);
-        // defaultPipeline.imageProcessing.vignetteEnabled = true;
-        // //
-        //ssr
-        const ssrRenderingPipeline = new SSRRenderingPipeline(
-            "ssr",
-            scene,
-            [mmdCamera, arcRotateCamera],
-            false,
-            Constants.TEXTURETYPE_UNSIGNED_BYTE
-        );
-        ssrRenderingPipeline.step = 32;
-        ssrRenderingPipeline.maxSteps = 128;
-        ssrRenderingPipeline.maxDistance = 500;
-        ssrRenderingPipeline.enableSmoothReflections = false;
-        ssrRenderingPipeline.enableAutomaticThicknessComputation = false;
-        ssrRenderingPipeline.blurDownsample = 2;
-        ssrRenderingPipeline.ssrDownsample = 2;
-        ssrRenderingPipeline.thickness = 0.1;
-        ssrRenderingPipeline.selfCollisionNumSkip = 2;
-        ssrRenderingPipeline.blurDispersionStrength = 0;
-        ssrRenderingPipeline.roughnessFactor = 0.1;
-        ssrRenderingPipeline.reflectivityThreshold = 0.9;
-        ssrRenderingPipeline.samples = 4;
-        //
-        let lastClickTime = -Infinity;
-        _canvas.onclick = (): void => {
-            const currentTime = performance.now();
-            if (500 < currentTime - lastClickTime) {
-                lastClickTime = currentTime;
-                return;
-            }
-
-            lastClickTime = -Infinity;
-
-            if (scene.activeCamera === mmdCamera) {
-                // ssrRenderingPipeline.depthOfFieldEnabled = false;
-                scene.activeCamera = arcRotateCamera;
-            } else {
-                // ssrRenderingPipeline.depthOfFieldEnabled = true;
-                scene.activeCamera = mmdCamera;
-            }
-        };
-        // const guiCamera = new ArcRotateCamera("GUICamera", Math.PI / 2 + Math.PI / 7, Math.PI / 2, 100, new Vector3(0, 20, 0), scene);
-        // guiCamera.layerMask = 0x10000000;
-        // scene.activeCameras = [mmdCamera, guiCamera];
-
-        // let lastClickTime = -Infinity;
-        // _canvas.onclick = (): void => {
-        //     const currentTime = performance.now();
-        //     if (500 < currentTime - lastClickTime) {
-        //         lastClickTime = currentTime;
-        //         return;
-        //     }
-        //     lastClickTime = -Infinity;
-        //     scene.activeCameras = [mmdCamera, guiCamera];
-
-        //     if (scene.activeCameras[0] === mmdCamera) scene.activeCameras = [camera, guiCamera];
-        //     else scene.activeCameras = [mmdCamera, guiCamera];
-        // };
-
-        // // ...
-        // const defaultPipeline = new DefaultRenderingPipeline("default", true, scene, [mmdCamera, arcRotateCamera]);
 
         return scene;
     }
