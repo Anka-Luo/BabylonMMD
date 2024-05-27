@@ -5,7 +5,7 @@ import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/core/Rendering/geometryBufferRendererSceneComponent";
 
-import { ArcRotateCamera, Constants,  Material, MirrorTexture, Plane, SSRRenderingPipeline } from "@babylonjs/core";
+import { ArcRotateCamera,  Material, MirrorTexture, Plane } from "@babylonjs/core";
 import type { Engine } from "@babylonjs/core/Engines/engine";
 import { DirectionalLight } from "@babylonjs/core/Lights/directionalLight";
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
@@ -198,6 +198,25 @@ export class SceneBuilder implements ISceneBuilder {
         const mmdModel = mmdRuntime.createMmdModel(modelMesh);
         mmdModel.addAnimation(loadResults[2]);
         mmdModel.setAnimation("motion_1");
+
+        let lastClickTime = -Infinity;
+        _canvas.onclick = (): void => {
+            const currentTime = performance.now();
+            if (500 < currentTime - lastClickTime) {
+                lastClickTime = currentTime;
+                return;
+            }
+
+            lastClickTime = -Infinity;
+
+            if (scene.activeCamera === mmdCamera) {
+                // defaultPipeline.depthOfFieldEnabled = false;
+                scene.activeCamera = arcRotateCamera;
+            } else {
+                // defaultPipeline.depthOfFieldEnabled = true;
+                scene.activeCamera = mmdCamera;
+            }
+        };
 
         return scene;
     }
