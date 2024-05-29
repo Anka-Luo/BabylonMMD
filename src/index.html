@@ -13,9 +13,18 @@
             margin: 0;
         }
     </style>
+    <!-- Add an inline script tag at the end of head or right before the closing body tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.addEventListener('touchmove', function(event) {
+                event.preventDefault(); // 阻止默认的滚动行为
+            }, { passive: false }); // 设置passive为false允许preventDefault
+        });
+    </script>
 </head>
 
 <body>
+    <!-- Your body content here -->
 </body>
 
 </html>
