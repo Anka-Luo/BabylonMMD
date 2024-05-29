@@ -6,8 +6,8 @@
         "start": "webpack serve --mode development",
         "watch": "webpack --watch",
         "build": "webpack --env production",
+        "dev": "webpack-dev-server --mode development --open",
         "lint": "eslint --ext .ts,.tsx . --fix --cache"
-        
     },
     "repository": {
         "type": "git",
@@ -39,11 +39,11 @@
     },
     "sideEffects": false,
     "dependencies": {
-        "@babylonjs/core": "^6.21.2",
+        "@babylonjs/core": "^7.8.2",
         "@babylonjs/havok": "^1.1.4",
         "@babylonjs/inspector": "^6.21.2",
         "@babylonjs/materials": "^6.21.2",
-        "babylon-mmd": "^0.28.0",
-        "babylonjs": "^7.6.0"
+        "@babylonjs/loaders": "^7.8.2",
+        "babylon-mmd": "^0.28.0"
     }
 }
